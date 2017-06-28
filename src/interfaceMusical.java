@@ -49,7 +49,7 @@ public class interfaceMusical extends javax.swing.JFrame {
             }
         });
 
-        combo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Distortion", "Outro" }));
+        combo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Flanger", "Distortion" }));
         combo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combo1ActionPerformed(evt);

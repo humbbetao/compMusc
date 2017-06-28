@@ -18,7 +18,7 @@ instr 1
 
 kfeedback = p4
 avoice in
-asnd   diskin2 "beats.wav", 1, 0, 1
+asnd   diskin2"beats.wav", 1, 0, 1
 adel linseg 0, p3*.5, 0.02, p3*.5, 0	;max delay time =20ms	
 aflg flanger asnd, adel, kfeedback
 asig clip aflg, 1, 1

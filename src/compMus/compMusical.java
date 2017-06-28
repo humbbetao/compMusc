@@ -27,12 +27,12 @@ import javax.swing.SwingUtilities;
 
 public class compMusical {
 
-    public compMusical() {
-        csnd6.csoundInitialize(csnd6.CSOUNDINIT_NO_ATEXIT | csnd6.CSOUNDINIT_NO_SIGNAL_HANDLER);
+    public compMusical(String arquivo, String efeito) {
 
-//        if (efeito.equals("Flanger")) {
-        if (true) {
-//            c.Compile("flanger.csd");
+        csnd6.csoundInitialize(csnd6.CSOUNDINIT_NO_ATEXIT
+                | csnd6.CSOUNDINIT_NO_SIGNAL_HANDLER);
+        if (efeito.equals(
+                "Flanger")) {
 
             final String orc = "<CsoundSynthesizer>\n"
                     + "<CsOptions>\n"
@@ -54,7 +54,7 @@ public class compMusical {
                     + "\n"
                     + "kfeedback = p4\n"
                     + "avoice in\n"
-                    + "asnd   diskin2 \"beats.wav\", 1, 0, 1\n"
+                    + "asnd   diskin2\"" + arquivo + "\", 1, 0, 1\n"
                     + "adel linseg 0, p3*.5, 0.02, p3*.5, 0	;max delay time =20ms	\n"
                     + "aflg flanger asnd, adel, kfeedback\n"
                     + "asig clip aflg, 1, 1\n"
@@ -70,6 +70,7 @@ public class compMusical {
                     + "\n"
                     + "</CsScore>\n"
                     + "</CsoundSynthesizer>";
+            System.out.println(orc);
 
             Writer writer = null;
 
@@ -88,51 +89,12 @@ public class compMusical {
 
             System.out.println(orc);
             final Csound c = new Csound();
-//            c.SetOption("-odac");
-//
-//            c.InputMessage("i 1 0 10 .2\n"
-//                    + "i 1 11 10 .8\n"
-//                    + "e");
-//            //c.SetOption("-o distort.wav -W");
-//            c.CompileOrc(orc);
 
-//            System.out.println(c.GetOutputName());
             c.Compile("f.csd");
             c.Start();
             c.Perform();
-
-//            final CsoundPerformanceThread pt = new CsoundPerformanceThread(c);
-//            pt.Play();
-//                button.addActionListener(new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        pt.InputMessage("i1 0 2 .5 400 .25");
-//                    }
-//                });
-//                frame.addWindowListener(new WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(WindowEvent e) {
-//                        pt.Stop();
-//                        pt.Join();
-//                        c1.Stop();
-//                    }
-//                });
-//                frame.getContentPane().add(button);
-//                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//                frame.pack();
-//                frame.setVisible(true);
-//            pt.Stop();
-//            pt.Join();
             c.Stop();
-//                    
-//            c.Perform();
-//
-//            c.Stop();
         }
-    }
-
-    public static void main(String args[]) {
-        new compMusical();
     }
 
 }
