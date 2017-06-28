@@ -13,23 +13,24 @@ ksmps  = 32
 nchnls = 2
 0dbfs  = 1
 
+gifn	 ftgen	0,0, 257, 9, .5,1,270	; define a sigmoid, or better 
+;gifn	ftgen	0,0, 257, 9, .5,1,270,1.5,.33,90,2.5,.2,270,3.5,.143,90,4.5,.111,270
 
 instr 1
-
-kfeedback = p4
 avoice in
-asnd   diskin2 "beats.wav", 1, 0, 1
-adel linseg 0, p3*.5, 0.02, p3*.5, 0	;max delay time =20ms	
-aflg flanger asnd, adel, kfeedback
-asig clip aflg, 1, 1
-outs asig+asnd, asig+asnd		;mix flanger with original
+asig   diskin2 "beats.wav", 1, 0, 1
+
+kdist	line	0, p3, 2		; and over 10 seconds
+;asig 	poscil	0.3, 440, 1
+
+aout 	distort	asig, kdist, gifn	; gradually increase the distortion
+	outs	 	aout, aout
 
 endin
 </CsInstruments>
 <CsScore>
-
-i 1 0 10 .2
-i 1 11 10 .8	;lot of feedback
+f 1 0 16384 10 1
+i 1 0 30
 e
 
 </CsScore>
