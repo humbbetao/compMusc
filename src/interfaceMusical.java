@@ -1,5 +1,8 @@
 
 import compMus.compMusical;
+import java.io.File;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -15,9 +18,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class interfaceMusical extends javax.swing.JFrame {
 
-    compMusical comp; 
-    String efeito= new String("");
-    String arquivo= new String("");
+    compMusical comp;
+    String efeito = new String("");
+    String arquivo = new String("");
 
     /**
      * Creates new form interfaceMusical
@@ -40,6 +43,7 @@ public class interfaceMusical extends javax.swing.JFrame {
         fileChooser = new javax.swing.JFileChooser();
         combo1 = new javax.swing.JComboBox<>();
         aplly = new javax.swing.JButton();
+        tocarAudio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,6 +67,13 @@ public class interfaceMusical extends javax.swing.JFrame {
             }
         });
 
+        tocarAudio.setText("Tocar Audio Original");
+        tocarAudio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tocarAudioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,7 +87,10 @@ public class interfaceMusical extends javax.swing.JFrame {
                         .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(70, 70, 70)
-                        .addComponent(aplly)))
+                        .addComponent(aplly))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(tocarAudio)))
                 .addContainerGap(323, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -90,7 +104,9 @@ public class interfaceMusical extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(101, 101, 101)
-                        .addComponent(aplly)))
+                        .addComponent(aplly)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tocarAudio)))
                 .addContainerGap(196, Short.MAX_VALUE))
         );
 
@@ -126,11 +142,26 @@ public class interfaceMusical extends javax.swing.JFrame {
         if (efeito.equals("") || arquivo.equals("")) {
             JOptionPane.showMessageDialog(this,
                     "Selecione corretamente");
-        }else{
+        } else {
             comp = new compMusical(arquivo, efeito);
         }
-        
+
     }//GEN-LAST:event_apllyActionPerformed
+
+    private void tocarAudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tocarAudioActionPerformed
+        // TODO add your handling code here:
+//    public static void play(String filename) {
+        if (!arquivo.equals("")) {
+            try {
+                Clip clip = AudioSystem.getClip();
+                String filename;
+                clip.open(AudioSystem.getAudioInputStream(new File(arquivo)));
+                clip.start();
+            } catch (Exception exc) {
+                exc.printStackTrace(System.out);
+            }
+        }
+    }//GEN-LAST:event_tocarAudioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,16 +177,24 @@ public class interfaceMusical extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(interfaceMusical.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(interfaceMusical.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(interfaceMusical.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(interfaceMusical.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(interfaceMusical.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(interfaceMusical.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(interfaceMusical.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(interfaceMusical.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -174,5 +213,6 @@ public class interfaceMusical extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> combo1;
     private javax.swing.JFileChooser fileChooser;
+    private javax.swing.JButton tocarAudio;
     // End of variables declaration//GEN-END:variables
 }
