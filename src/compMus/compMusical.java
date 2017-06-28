@@ -23,7 +23,7 @@ public class compMusical {
 
         // Compile a pre-defined test1.csd file
         // This path should be modified for your own path on your computer
-        c.Compile("teste.csd");
+        c.Compile("flanger.csd");
 
         // This call runs Csound to completion
         c.Perform();
